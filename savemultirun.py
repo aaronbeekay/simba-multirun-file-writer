@@ -1,3 +1,15 @@
+# Aaron Bonnell-Kangas, July 2014
+### INSTRUCTIONS ###
+
+## Insert at the beginning of the script:
+# import savemultirun
+# outfile = savemultirun.initializeOutput()
+# runInfoDict = dict()
+
+## Every time you receive results from a run:
+## newRun is a dict containing the run statistics
+# runInfoDict = savemultirun.writeRun(runInfoDict, newRun, outfile)
+
 import numpy
 import datetime
 import os.path
