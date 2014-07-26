@@ -42,24 +42,29 @@ def initializeOutput():
 # newRun: the latest run
 # outfile: the output file reference
 def writeRun( runInfoDict, newRun, outfile ):
-	global unwritten
-	
-	runRPM = newRun["RPM limit"]
-	runTorque = newRun["Torque limit"]
-	
-	if not runRPM in runInfoDict:
-		runInfoDict[runRPM] = dict()
-	
-	runInfoDict[runRPM][runTorque] = newRun
-	
-	if unwritten > 5:
-		unwritten = 0
-		outfile.seek(0)
-		outfile.write( json.dumps(runInfoDict) )
-		#pickle.dump( runInfoDict, outfile )
-	else:
-		unwritten = unwritten + 1
-	
-	return runInfoDict
-	
+    global unwritten
+    runRPM = newRun["RPM limit"]
+    runTorque = newRun["Torque limit"]
+    
+    if not runRPM in runInfoDict:
+        runInfoDict[runRPM] = dict()
+    
+    runInfoDict[runRPM][runTorque] = newRun.copy()
+    
+    
+    if unwritten > 5:
+        unwritten = 0
+        outfile.seek(0)
+        outfile.write( json.dumps(runInfoDict) )
+    else:
+      unwritten = unwritten + 1
+    
+    return runInfoDict
+
+def closeOutput(runInfoDict,outfile):
+    outfile.write( json.dumps(runInfoDict) )
+    outfile.flush()
+    outfile.close()
+    
+     
 	
