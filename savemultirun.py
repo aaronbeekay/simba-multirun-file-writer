@@ -61,7 +61,9 @@ def writeRun( runInfoDict, newRun, outfile ):
     
     return runInfoDict
 
+
 def closeOutput(runInfoDict,outfile):
+    outfile.seek(0)
     outfile.write( json.dumps(runInfoDict) )
     outfile.flush()
     outfile.close()
